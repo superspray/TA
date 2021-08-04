@@ -542,7 +542,7 @@ class TA:
 
 
 
-   @classmethod
+    @classmethod
     def PVO(
         cls,
         ohlcv: DataFrame,
@@ -2365,7 +2365,7 @@ class TA:
         """
         close1 = ohlc.close.shift(int(period/2+1))
         sma = ohlc.close.rolling(window=period).mean()
-		dpo = - sma + close1
+        dpo = - sma + close1
 
         return pd.Series(dpo, name="DPO")
 
@@ -2373,9 +2373,9 @@ class TA:
     def PVR(cls,
             ohlcv: DataFrame,
         ) -> Series:
-	    """
-		The Price Volume Rank 
-	    """
+        """
+        The Price Volume Rank 
+        """
         dif_cv = ohlcv.loc[:,["close", "volume"]].diff()
         sign_cv = dif_cv.applymap(lambda x: 1 if x>0 else (np.nan if pd.isna(x) else 0) )
         def _pvrank(x):
@@ -2394,6 +2394,7 @@ class TA:
 
         rank = sign_cv.apply(lambda x: _pvrank(x), axis = 1)
         return pd.Series(rank, name = "PVR")
+
 
     @classmethod
     def PSY(cls,
